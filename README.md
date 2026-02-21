@@ -111,9 +111,6 @@ Execute os notebooks **sequencialmente**:
 ### 5. Submissão
 Após executar o notebook 02 ou 03, o arquivo `submission.csv` será gerado na raiz do projeto, pronto para upload no Kaggle.
 
-## 📝 Relatório
-O relatório técnico-científico no formato IEEE encontra-se acessível na raiz do projeto como `artigo_ieee_final.pdf`, enquanto os códigos fontes (`.md`, `.pdf`) da renderização estão salvos na pasta `report/`.
-
 ## 📦 Tecnologias
 - Python 3.x
 - scikit-learn (LinearSVC, CalibratedClassifierCV, TF-IDF)
