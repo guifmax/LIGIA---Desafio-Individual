@@ -1,0 +1,18 @@
+# Environments
+.env
+
+# Byte-compiled
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Checkpoints
+.ipynb_checkpoints/
+
+# Data and large artifacts
+inputs/
+outputs/artifacts/
+!outputs/figures/
+
+# macOS
+.DS_Store
