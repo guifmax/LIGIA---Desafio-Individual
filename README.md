@@ -30,19 +30,23 @@ LIGIA_FINAL/
 ├── outputs/
 │   ├── artifacts/               # Modelos e artefatos salvos
 │   │   ├── best_model.pkl       # LinearSVC + CalibratedClassifierCV (modelo final)
-│   │   ├── best_model_v2.pkl    # Versão alternativa do modelo
-│   │   ├── best_threshold.pkl   # Threshold otimizado (0.335)
+│   │   ├── best_model_v2.pkl    # Versão alternativa do modelo (experimentação)
+│   │   ├── best_threshold.pkl   # Limiar otimizado
 │   │   ├── tfidf_vectorizer.pkl # Vetorizador TF-IDF fitado no treino
 │   │   ├── style_scaler.pkl     # MaxAbsScaler para features de estilo
 │   │   ├── subject_encoder.pkl  # LabelEncoder para a coluna 'subject'
-│   │   ├── X_train.npz / X_test.npz  # Matrizes sparse (TF-IDF + estilo)
+│   │   ├── X_train.npz / X_test.npz  # Matrizes esparsas (TF-IDF + features de estilo)
 │   │   └── *.csv               # Datasets intermediários
-│   └── figures/                 # Gráficos gerados
+│   └── figures/                 # Gráficos de avaliação e interpretabilidade
 │       ├── shap_bar.png         # SHAP feature importance
 │       ├── shap_summary.png     # SHAP summary plot
-│       ├── confusion_matrix.png # Matriz de confusão
-│       └── ...                  # Learning curve, threshold, CV results
-├── report/                      # Relatório técnico-científico (IEEE)
+│       ├── confusion_matrix.png # Matriz de confusão no holdout
+│       └── ...                  # Curvas de calibração, learning curve e distribuições
+├── report/                      # Arquivos do relatório técnico-científico (IEEE)
+├── src/                         # Módulos refatorados para execução reaproveitável
+│   ├── constants.py             # Constantes, metadados e diretórios do projeto
+│   └── preprocessing.py         # Funções modulares de limpeza e feature engineering 
+├── artigo_ieee_final.pdf        # Artigo técnico gerado em PDF pronto para avaliação
 ├── submission.csv               # Arquivo de submissão Kaggle
 ├── requirements.txt             # Dependências com versões fixas
 └── README.md                    # Este arquivo
@@ -51,10 +55,11 @@ LIGIA_FINAL/
 ## 🧠 Metodologia
 
 ### Pipeline
+A pipeline conta com reaproveitamento de código e orquestração baseada no módulo `src/` (`preprocessing.py` e `constants.py`) para modularidade e reprodutibilidade:
 1. **Remoção de Data Leakage:** Tags de agência (Reuters, AP, AFP), URLs, bylines
 2. **Feature Engineering Estilístico (15 features):** `caps_ratio`, `exclamation_count`, `word_count`, `avg_word_len`, `sentence_count`, `avg_sentence_len`, `question_count`, `quote_count`, `ellipsis_count`, `all_caps_words`, `title_caps_ratio`, `unique_word_ratio`, `sensational_count`, `title_len`, `text_len`
 3. **Pré-processamento de Texto:** Lematização (NLTK WordNet + POS tagging), remoção de stopwords
-4. **Vetorização:** TF-IDF (unigrams + bigrams, max 12.000 features)
+4. **Vetorização:** TF-IDF (unigramas, bigramas e trigramas, max 12.000 features)
 5. **Modelo:** `LinearSVC(C=1.0, class_weight='balanced')` + `CalibratedClassifierCV(method='sigmoid', cv=3)`
 6. **Threshold Tuning:** Otimização do limiar de decisão em holdout separado
 
@@ -107,7 +112,7 @@ Execute os notebooks **sequencialmente**:
 Após executar o notebook 02 ou 03, o arquivo `submission.csv` será gerado na raiz do projeto, pronto para upload no Kaggle.
 
 ## 📝 Relatório
-O relatório técnico-científico no formato IEEE encontra-se na pasta `report/`.
+O relatório técnico-científico no formato IEEE encontra-se acessível na raiz do projeto como `artigo_ieee_final.pdf`, enquanto os códigos fontes (`.md`, `.pdf`) da renderização estão salvos na pasta `report/`.
 
 ## 📦 Tecnologias
 - Python 3.x
