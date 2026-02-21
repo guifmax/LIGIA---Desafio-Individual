@@ -46,7 +46,6 @@ LIGIA_FINAL/
 ├── src/                         # Módulos refatorados para execução reaproveitável
 │   ├── constants.py             # Constantes, metadados e diretórios do projeto
 │   └── preprocessing.py         # Funções modulares de limpeza e feature engineering 
-├── artigo_ieee_final.pdf        # Artigo técnico gerado em PDF pronto para avaliação
 ├── submission.csv               # Arquivo de submissão Kaggle
 ├── requirements.txt             # Dependências com versões fixas
 └── README.md                    # Este arquivo
